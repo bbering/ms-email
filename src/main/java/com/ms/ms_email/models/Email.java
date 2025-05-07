@@ -38,5 +38,6 @@ public class Email implements Serializable {
     private String content;
 
     private LocalDateTime sendingTime;
+    private StatusEmail statusEmail;
 
 }
