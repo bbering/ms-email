@@ -11,7 +11,7 @@ public class EmailConsumer {
 
     @RabbitListener(queues = "${broker.queue.email.name}")
     public void listenEmailQueue(@Payload EmailRequestDTO emailData){
-        System.out.println(emailData.getEmailTo());
+        // chamada do método ao ser criada na service
     }
     
 }
