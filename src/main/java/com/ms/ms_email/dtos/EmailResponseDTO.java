@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class EmailResponseDTO {
     private String destinationEmail;
+    private String messageSubject;
+    private String messageContent;
 }
