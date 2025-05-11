@@ -1,12 +1,19 @@
 package com.ms.ms_email.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.ms.ms_email.dtos.EmailRequestDTO;
+import com.ms.ms_email.dtos.EmailResponseDTO;
+import com.ms.ms_email.enums.StatusEmail;
 import com.ms.ms_email.models.Email;
 import com.ms.ms_email.repositories.EmailRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EmailService {
@@ -43,6 +50,29 @@ public class EmailService {
         return emailToConvert;
     }
 
-    // metodo para enviar emails
+    @Transactional
+    public EmailResponseDTO sendEmail(EmailRequestDTO emailData) {
+        Email emailToSave = toEntity(emailData);
+
+        emailToSave.setSendingTime(LocalDateTime.now());
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(emailToSave.getEmailTo());
+        message.setSubject(emailToSave.getEmailSubject());
+        message.setText(emailToSave.getContent());
+
+        javaMailSender.send(message);
+
+        emailToSave.setStatusEmail(StatusEmail.SENT);
+
+        emailRepository.save(emailToSave);
+
+        EmailResponseDTO emailResponse = new EmailResponseDTO();
+        emailResponse.setDestinationEmail(emailToSave.getEmailTo());
+        emailResponse.setMessageContent(emailToSave.getContent());
+        emailResponse.setMessageSubject(emailToSave.getEmailSubject());
+
+        return emailResponse;
+    }
 
 }
