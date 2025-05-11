@@ -1,5 +1,6 @@
 package com.ms.ms_email.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Value(value = "${spring.mail.username}")
+    private String emailFrom;
+
     public EmailRequestDTO toDTO(Email email) {
         EmailRequestDTO entityConverted = new EmailRequestDTO();
         entityConverted.setMessageContent(email.getContent());
@@ -27,5 +31,7 @@ public class EmailService {
 
         return entityConverted;
     }
+
+    // metodo para enviar emails
 
 }
