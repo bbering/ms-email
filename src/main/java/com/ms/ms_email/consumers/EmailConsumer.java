@@ -12,13 +12,13 @@ public class EmailConsumer {
 
     final EmailService emailService;
 
-    public EmailConsumer(EmailService emailService){
+    public EmailConsumer(EmailService emailService) {
         this.emailService = emailService;
     }
 
     @RabbitListener(queues = "${broker.queue.email.name}")
-    public void listenEmailQueue(@Payload EmailRequestDTO emailData){
-        
+    public void listenEmailQueue(@Payload EmailRequestDTO emailData) {
+        emailService.sendEmail(emailData);
     }
-    
+
 }
