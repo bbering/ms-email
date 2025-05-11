@@ -32,6 +32,17 @@ public class EmailService {
         return entityConverted;
     }
 
+    public Email toEntity(EmailRequestDTO emailDTO) {
+        Email emailToConvert = new Email();
+        emailToConvert.setContent(emailDTO.getMessageContent());
+        emailToConvert.setEmailFrom(emailFrom);
+        emailToConvert.setEmailSubject(emailDTO.getMessageSubject());
+        emailToConvert.setEmailTo(emailDTO.getDestinationEmail());
+        emailToConvert.setUserID(emailDTO.getRequesterUserId());
+
+        return emailToConvert;
+    }
+
     // metodo para enviar emails
 
 }
