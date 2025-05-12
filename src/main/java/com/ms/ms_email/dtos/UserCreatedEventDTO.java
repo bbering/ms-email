@@ -14,4 +14,5 @@ public class UserCreatedEventDTO {
     private UUID id;
     private String name;
     private String email;
+    private String emailTo;
 }
