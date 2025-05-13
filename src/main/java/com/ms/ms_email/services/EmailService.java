@@ -53,17 +53,21 @@ public class EmailService {
     @Transactional
     public EmailResponseDTO sendEmail(EmailRequestDTO emailData) {
         Email emailToSave = toEntity(emailData);
-
         emailToSave.setSendingTime(LocalDateTime.now());
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(emailToSave.getEmailTo());
-        message.setSubject(emailToSave.getEmailSubject());
-        message.setText(emailToSave.getContent());
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(emailFrom);
+            message.setTo(emailToSave.getEmailTo());
+            message.setSubject(emailToSave.getEmailSubject());
+            message.setText(emailToSave.getContent());
 
-        javaMailSender.send(message);
-
-        emailToSave.setStatusEmail(StatusEmail.SENT);
+            javaMailSender.send(message);
+            emailToSave.setStatusEmail(StatusEmail.SENT);
+        } catch (Exception e) {
+            emailToSave.setStatusEmail(StatusEmail.ERROR);
+            System.err.println("Erro ao enviar e-mail: " + e.getMessage());
+        }
 
         emailRepository.save(emailToSave);
 
