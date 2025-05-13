@@ -12,10 +12,11 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserCreatedEventDTO {
+
     @JsonProperty("userId")
     private UUID id;
+
     private String name;
+
     private String email;
-    private String emailTo;
-    private String subject;
 }
