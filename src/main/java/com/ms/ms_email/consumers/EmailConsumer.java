@@ -23,7 +23,7 @@ public class EmailConsumer {
         emailRequest.setRequesterUserId(event.getId());
         emailRequest.setDestinationEmail(event.getEmail());
         emailRequest.setMessageSubject("Bem vindo: " + event.getName());
-        emailRequest.setMessageContent("Olá! " + event.getName() + ", o seu cadastro foi concluído com sucesso!");
+        emailRequest.setMessageContent("Olá, " + event.getName() + ", o seu cadastro foi concluído com sucesso!");
 
         emailService.sendEmail(emailRequest);
     }
