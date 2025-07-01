@@ -64,6 +64,7 @@ mvn spring-boot:run
 ## Observações
 
 - A aplicação depende do serviço `ms-user`, que envia os eventos via RabbitMQ para que o `ms-email` os consuma.
+- A aplicação `ms-user` está disponível em: https://github.com/bbering/ms-user
 - Ambos os serviços devem estar conectados à mesma instância do RabbitMQ no CloudAMQP.
 
 ## Testes
